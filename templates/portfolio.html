@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% include 'test.html' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+
+<!-- Preview modal -->
+<div class="modal fade" id="previewModal" tabindex="-1" aria-labelledby="previewModalLabel" aria-hidden="true" data-bs-backdrop="false">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="previewModalLabel">Image Preview</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <img id="previewImage" src="" class="w-100" alt="Preview Image">
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Portfolio title -->
+<h1 class="mb-4">Portfolio</h1>
+
+<div class="container mt-5">
+    <!-- Form for filtering images by category -->
+    <form class="mb-3" method="POST" action="{{ url_for('portfolio') }}" autocomplete="off" novalidate id="category-form">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <!-- Select element for choosing category -->
+          <select class="form-select" name="category" id="category-select">
+            <!-- Option for showing all categories (if no category is selected) -->
+            <option value="" {% if category is none %}selected{% endif %}>All categories</option>
+            <!-- Loop through all categories and create an option for each one -->
+            {% for category_name in categories %}
+              <option value="{{ category_name }}" {% if category == category_name %}selected{% endif %}>{{ category_name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+      </div>
+    </form>
+  
+    <!-- Display images in a grid -->
+    <div class="row row-cols-1 row-cols-md-3 g-4 rounded">
+      <!-- Loop through all images and display only those that match the selected category (or all images if no category is selected) -->
+      {% for image in images %}
+      {% if category == "" or image.category == category %}
+          <div class="col">
+            <div class="card shadow">
+              <!-- Link to full-size image -->
+              <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}">
+                <img src="{{ url_for('static', filename='images/' + image.filename) }}" style="height: 200px; object-fit: cover; transition: all 0.3s ease;" class="card-img-top" alt="{{ image.title }}" onmouseover="this.style.height='auto'; this.style.width='110%'; this.style.objectFit='contain';" onmouseout="this.style.height='200px'; this.style.width='100%'; this.style.objectFit='cover';">
+              </button>
+              
+              <div class="modal fade" id="imageModal{{ image.id }}" tabindex="-1" aria-labelledby="imageModal{{ image.id }}Label" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+
+                    <div class="modal-body">
+                    <a href="{{ url_for('static', filename='images/' + image.filename) }}" target="_blank">
+                        <img src="{{ url_for('static', filename='images/' + image.filename) }}" style="height: 100%; width: 100%; object-fit: contain;">
+                    </a>
+                      <h5 class="modal-title" id="imageModal{{ image.id }}Label">{{ image.title }}</h5>
+                      <p>{{ image.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Image details (title and description) -->
+              <div class="card-body pt-0">
+                <h5 class="card-title">{{ image.title }}</h5>
+                <p class="card-text text-center text-muted">{{ image.description }}</p>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+</div>
+
+<script>
+    const categorySelect = document.getElementById('category-select');
+    const categoryForm = document.getElementById('category-form');
+  
+    categorySelect.addEventListener('change', function() {
+      // Create a hidden input field
+      const hiddenInput = document.createElement('input');
+      hiddenInput.type = 'hidden';
+      hiddenInput.name = 'category';
+      hiddenInput.value = categorySelect.value === "All categories" ? "" : categorySelect.value;
+  
+      // Append the hidden input field to the form
+      categoryForm.appendChild(hiddenInput);
+  
+      // Submit the form
+      categoryForm.submit();
+    });
+
+    // Get the file input and preview image elements
+const imageInput = document.getElementById('imageInput');
+const previewImage = document.getElementById('previewImage');
+
+// Add an event listener to the file input to handle when a file is selected
+imageInput.addEventListener('change', () => {
+  // Get the selected file from the file input element
+  const file = imageInput.files[0];
+
+  // Set the preview image source to the selected file data
+  const reader = new FileReader();
+  reader.addEventListener('load', () => {
+    previewImage.src = reader.result;
+  });
+  reader.readAsDataURL(file);
+
+  // Show the preview modal
+  const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
+  previewModal.show();
+});
+  </script>
+
+{% endblock %}

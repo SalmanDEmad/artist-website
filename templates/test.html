@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+   <head>
+        <meta charset="UTF-8">
+        <title>Smart Wizard Modal Example</title>
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <!-- Smart Wizard CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/smartwizard/4.3.1/css/smart_wizard.min.css" />
+        <!-- Cropper.js CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.css" />
+
+    </head>
+   <body>
+    {% block content %}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#smartWizardModal" onclick="initSmartWizard()">
+        Launch Smart Wizard Modal
+    </button>
+    
+      <!-- Smart Wizard Modal -->
+      <div class="modal fade" id="smartWizardModal" tabindex="-1" role="dialog" aria-labelledby="smartWizardModalLabel" aria-hidden="true">
+         <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+               <div class="modal-header">
+                  <h5 class="modal-title" id="smartWizardModalLabel">Smart Wizard Modal Example</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+               </div>
+               <form method="POST" action="/post_to_portfolio" enctype="multipart/form-data">
+                <div class="modal-body">
+                     <!-- Smart Wizard HTML -->
+                     <div id="smartWizard">
+                        <ul>
+                           <li><a href="#step-1">Step 1</a></li>
+                           <li><a href="#step-2">Step 2</a></li>
+                           <li><a href="#step-3">Step 3</a></li>
+                        </ul>
+                        <div>
+                           <div id="step-1">
+                              <h2>Add Image Details</h2>
+                              <div class="mb-3">
+                                 <label for="titleInput" class="form-label">Title</label>
+                                 <input type="text" class="form-control" id="titleInput" name="title" required>
+                              </div>
+                              <div class="mb-3">
+                                 <label for="descriptionInput" class="form-label">Description</label>
+                                 <textarea class="form-control" id="descriptionInput" name="description" rows="3" required></textarea>
+                              </div>
+                              <div class="mb-3">
+                                 <label for="categoryInput" class="form-label">Category</label>
+                                 <input type="text" class="form-control" id="categoryInput" name="category_for_post" required>
+                              </div>
+                           </div>
+                           <div id="step-2">
+                            <h2>Add Image</h2>
+                            <div class="mb-3">
+                              <label for="imageInput" class="form-label">Image</label>
+                              <div class="input-group">
+                                <input class="form-control" type="file" id="imageInput" name="image" accept="image/*" required>
+                              </div>
+                              <h2>Preview Image</h2>
+                              <div id="croppableImageContainer">
+                                <img id="previewImage" src="" class="w-100" alt="Preview Image" style="display: none;">
+                                <button type="button" class="btn btn-primary" id="cropButton">Crop</button>  
+                            </div>
+                              <div class="mb-3">
+                                <label for="zoomRange" class="form-label">Zoom</label>
+                                <input type="range" class="form-control-range" id="zoomRange" min="0" max="100" value="100">
+                              </div>                              
+                            </div>
+                          </div>                          
+                          <div id="step-3">
+                            <h2>Preview Image</h2>
+                            <input type="hidden" id="croppedImageDataInput" name="croppedImageData">
+                            <img id="croppedPreviewImage" src="" class="w-100" alt="Cropped Preview Image">
+                          </div>                          
+                        </div>
+                     </div>
+                  </div>
+                  <div class="modal-footer">
+                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                     <button type="button" class="btn btn-primary" id="smartWizardPrev">Previous</button>
+                     <button type="button" class="btn btn-primary" id="smartWizardNext">Next</button>
+                     <button type="submit" class="btn btn-primary d-none" id="saveImage">Save Image</button>
+                  </div>
+               </form>
+            </div>
+         </div>
+      </div>
+      {% endblock %}
+      <!-- Cropper.js JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
+      <!-- Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <!-- Smart Wizard JS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/smartwizard/4.3.1/js/jquery.smartWizard.min.js"></script>
+      <script>
+        function initSmartWizard() {
+            $('#smartWizard').smartWizard({
+                theme: 'dots',
+                transitionEffect: 'fade'
+            });
+        
+            $('#smartWizardPrev').click(function() {
+                $('#smartWizard').smartWizard('prev');
+            });
+        
+            $('#smartWizardNext').click(function() {
+                let stepIndex = $('#smartWizard').smartWizard('getStepIndex');
+                if (stepIndex === 2) {
+                    updateCroppedPreview();
+                    $('#smartWizardNext').addClass('d-none');
+                    $('#saveImage').removeClass('d-none');
+                } else {
+                    $('#smartWizard').smartWizard('next');
+                }
+            });
+        
+            // Add a listener for the modal's hidden.bs.modal event
+            $('#smartWizardModal').on('hidden.bs.modal', function() {
+                // Destroy the Smart Wizard instance
+                $('#smartWizard').smartWizard('destroy');
+            });
+        }
+        
+        // Add a click event listener to the Launch Smart Wizard Modal button
+        $('#launchSmartWizardModal').click(function() {
+            // Initialize the Smart Wizard when the button is clicked
+            initSmartWizard();
+        });
+        
+        
+        
+        const imageInput = document.getElementById('imageInput');
+        const previewImage = document.getElementById('previewImage');
+        let cropper;
+        
+        // Initialize Cropper.js when the image is loaded
+        function initCropper() {
+            let previewImage = document.getElementById('previewImage');
+            cropper = new Cropper(previewImage, {
+                viewMode: 1,
+                autoCropArea: 1,
+                zoomable: false,
+                crop(event) {
+                    // You can access the crop data here
+                },
+            });
+        }
+        
+        
+        // Listen to the file input change event
+        document.getElementById('imageInput').addEventListener('change', function (e) {
+            if (e.target.files && e.target.files.length) {
+                const file = e.target.files[0];
+                const reader = new FileReader();
+        
+                // Destroy the previous cropper instance if exists
+                if (cropper) {
+                    cropper.destroy();
+                }
+        
+                reader.onload = function (event) {
+                    const previewImage = document.getElementById('previewImage');
+                    previewImage.src = event.target.result;
+                    previewImage.style.display = 'block';
+                    previewImage.addEventListener('load', initCropper);
+                };
+        
+                reader.readAsDataURL(file);
+            }
+        });
+        
+        document.getElementById('zoomRange').addEventListener('input', function (e) {
+            if (cropper) {
+                const zoomValue = e.target.value / 100;
+                cropper.zoomTo(zoomValue);
+            }
+        });
+        
+        function updateCroppedPreview() {
+            if (cropper) {
+                // Get the cropped image data as a base64 encoded string
+                const croppedDataURL = cropper.getCroppedCanvas().toDataURL();
+                document.getElementById('croppedImageDataInput').setAttribute('value', croppedDataURL);
+                // Set the cropped image data as the src attribute of the previewImage element in Step 3
+                document.getElementById('croppedPreviewImage').src = croppedDataURL;
+            }
+        }
+        
+        document.getElementById('cropButton').addEventListener('click', function() {
+            updateCroppedPreview();
+            $('#smartWizard').smartWizard('next');
+        });
+
+        // Check if current step is the last step
+        if ($('#smartWizard').smartWizard('isLastStep')) {
+            $('#saveImage').removeClass('d-none');
+        }
+  
+                  
+      </script>
+   </body>
+</html>

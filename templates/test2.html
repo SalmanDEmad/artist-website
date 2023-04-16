@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tilting Card Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<style>
+        .card {
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+            border-radius: 10px;
+            margin-bottom: 30px;
+            backface-visibility: hidden;
+            border: 2px solid #ff00ff;
+          }
+          
+          .card::before {
+            content: "";
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            bottom: -10px;
+            right: -10px;
+            border-radius: 20px;
+            opacity: 0;
+            transition: opacity 0.3s ease-out;
+          }
+          
+          .card:hover::before {
+            animation: neon 1s ease-out infinite;
+            opacity: 1;
+          }
+          
+          .card-neon {
+            position: relative;
+            overflow: hidden;
+          }
+          
+          .card-neon::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: -1;
+            transition: opacity 0.5s ease-in-out;
+          }
+          
+          .card-neon:hover::before {
+            opacity: 1;
+          }
+
+          .card-title .card-text {
+            transform-style: preserve-3d;
+            transition: transform 0.3s;
+        }
+          
+          .park {
+            width: 200px;
+            height: 100px;
+            position: relative;
+            background-color: #f0f0f0;
+            overflow: hidden;
+          }
+          
+          .snake {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: blue;
+            animation: move-snake 4s linear infinite;
+          }
+          
+          @keyframes move-snake {
+            0%   {background: red; left: 0px; top: 0px;}
+            25%  {background: yellow; left: 190px; top: 0px;}
+            50%  {background: blue; left: 190px; top: 190px;}
+            75%  {background: green; left: 0px; top: 190px;}
+            100% {background: red; left: 0px; top: 0px;}
+          }
+       
+	</style>
+</head>
+<body>
+	<div class="container my-5">
+		<div class="row">
+			<div class="col-md-4">
+				<div class="card card-neon">
+					<div class="card-body">
+						<h5 class="card-title">Tilting Card 1</h5>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card card-neon">
+					<div class="card-body">
+						<h5 class="card-title">Tilting Card 2</h5>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="card card-neon">
+					<div class="card-body">
+						<h5 class="card-title">Tilting Card 3</h5>
+						<p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <div class="park">
+        <div class="snake"></div>
+    </div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+	<script>
+		$('.card').tilt({
+			scale: 1.05,
+			perspective: 500,
+			glare: true,
+			maxGlare: .5,
+		});
+
+      // Add event listener for tilt change
+      $('.card').on('tiltChange', function (event, transforms) {
+        $(this).find('.card-title').css('transform', 'translateZ(40px)');
+        $(this).find('.card-text').css('transform', 'translateZ(40px)');
+    });
+	</script>
+</body>
+</html>
+

@@ -1,0 +1,341 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <!-- Parallax effect using the provided images -->
+  <style>
+    /* Navbar styles */
+    .navbar {
+      background-color: rgba(63, 0, 98, 0.2) !important;
+      backdrop-filter: blur(10px);
+      color: whitesmoke !important;
+      transition: background-color 0.5s ease;
+    }
+  
+    .navbar.navbar-scrolled1 {
+      background-color: rgba(0, 0, 0, 0.7) !important;
+      backdrop-filter: blur(10px);
+      transition: background-color 0.5s ease;
+    }
+    
+  
+    .navbar-invisible {
+      background-color: transparent;
+    }
+  
+    a.nav-link, a.navbar-brand {
+      color: whitesmoke !important;
+      border-radius: 5px;
+      transition: background-color 0.3s ease-in-out;
+    }
+  
+    .nav-link:hover {
+      background-color: rgba(128, 128, 128, 0.3);
+    }
+  
+    /* Hero section styles */
+    .hero {
+      position: relative;
+      height: 80vh;
+    }
+  
+    .hero video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  
+    .hero .content {
+      position: relative;
+      z-index: 1;
+      /* Add any additional styles for your hero content */
+    }
+  
+    /* Section styles */
+    section {
+      height: 100vh;
+      display: grid;
+      place-items: center;
+    }
+  
+    .section-1 {
+      background-color: #ffffff;
+    }
+  
+    .section-2 {
+      background-color: #222;
+    }
+  
+    .section-3 {
+      background-color: #333;
+    }
+  
+    .section-4 {
+      background-color: #444;
+    }
+  
+    /* Card styles */
+    .card {
+      position: relative;
+      overflow: hidden;
+      background-color: rgba(255, 255, 255, 0.8);
+      box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+      border-radius: 10px;
+      margin-bottom: 30px;
+      backface-visibility: hidden;
+      border: 2px solid #ff00ff;
+      transform-style: preserve-3d;
+    }
+  
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      bottom: -10px;
+      right: -10px;
+      border-radius: 20px;
+      opacity: 0;
+      transition: opacity 0.3s ease-out;
+    }
+  
+    .card:hover::before {
+      animation: neon 1s ease-out infinite;
+      opacity: 1;
+    }
+  
+    .card-neon {
+      position: relative;
+      overflow: hidden;
+    }
+  
+    .card-neon::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      z-index: -1;
+      transition: opacity 0.5s ease-in-out;
+    }
+  
+    .card-neon:hover::before {
+      opacity: 1;
+    }
+  
+    .card-title, .card-text {
+      transform: translateZ(0px);
+      transition: transform 0.3s;
+    }
+    
+    .card:hover .card-title, .card:hover .card-text {
+      transform: translateZ(400px);
+    }
+    
+  </style>
+
+<!-- Hero !-->
+<section class="hero">
+  <video autoplay loop muted>
+    <source src="{{ url_for('static', filename='video/al-vidya.mp4') }}" type="video/mp4">
+  </video>
+  <div class="container content text-center">
+    <div class="textbody">
+      <h1 class="text-light" style="padding: 30px; border: 6px solid rgb(255, 255, 255); border-radius: 10px;">Bring your ideas to life with our affordable digital art.</h1>
+    </div>
+    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Transformed by: SVG Repo Mixer Tools -->
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <svg class="white-svg" width="80px" height="80px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="#ffffff"><g id="SVGRepo_bgCarrier" stroke-width="0"/><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/><g id="SVGRepo_iconCarrier"> <title/> <g id="Complete"> <g id="F-Push"> <g id="Down"> <g> <polyline data-name="Down" fill="none" id="Down-2" points="5 6.1 12 13.1 19 6.1" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9359999999999999"/> <line fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.9359999999999999" x1="5" x2="19" y1="17.9" y2="17.9"/> </g> </g> </g> </g> </g></svg>      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.textbody {
+  margin-top: 200px;
+}
+
+.white-svg {
+  fill: #ffffff;
+  margin-top: 130px;
+  z-index: 9999;
+  cursor: pointer;
+}
+
+@keyframes jump {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+.white-svg {
+  fill: #ffffff;
+  animation: jump 1s ease-in-out infinite;
+}
+
+</style>
+
+
+
+
+<!-- Section 1 !-->
+<section class="section-1">
+  <h2>Section 1</h2>
+  <div class="container col-md-7 content">
+    <!-- Your hero content goes here -->
+    <div class="row">
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 1</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 2</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 3</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+
+    
+    
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 1</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 2</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 3</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 2 !-->
+<section class="section-2">
+  <h2>Section 2</h2>
+</section>
+
+<!-- Section 3 !-->
+<section class="section-3">
+  <h2>Section 3</h2>
+</section>
+
+<!-- Section 4 !-->
+<section class="section-4">
+  <h2>Section 4</h2>
+</section>
+
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+	<script>
+		$('.card').tilt({
+			scale: 1.05,
+			perspective: 500,
+			glare: true,
+      transition: true,
+			maxGlare: .5,
+		});
+
+    // Add event listeners for changing and updating header
+
+    $(document).ready(function() {
+      var navbar = $('.navbar');
+      var sections = [
+        { name: 'section-1', offset: $('.section-1').offset().top - 100 },
+        { name: 'section-2', offset: $('.section-2').offset().top - 100 },
+        { name: 'section-3', offset: $('.section-3').offset().top - 100 },
+        { name: 'section-4', offset: $('.section-4').offset().top - 100 }
+      ];
+      
+      $(window).scroll(function() {
+        var position = $(window).scrollTop();
+        
+        if (position >= sections[0].offset) {
+          for (var i = 0; i < sections.length; i++) {
+            if (position >= sections[i].offset && position < sections[i+1].offset) {
+              navbar.removeClass('navbar-scrolled' + i).addClass('navbar-scrolled' + (i+1));
+            } else {
+              navbar.removeClass('navbar-scrolled' + (i+1)).addClass('navbar-scrolled' + i);
+            }
+          }
+        } else {
+          navbar.removeClass('navbar-scrolled1 navbar-scrolled2 navbar-scrolled3 navbar-scrolled4');
+        }
+      });
+    });
+    
+
+    $(window).on('beforeunload', function() {
+      $(window).scrollTop(0);
+    });   
+
+    $(document).ready(function() {
+      $(".white-svg").on("click", function() {
+        // Add spinning animation to SVG
+        $(this).addClass("spin");
+    
+        // Scroll to top of element with class "section-1"
+        var section1 = $(".section-1");
+        $("html, body").animate({
+          scrollTop: section1.offset().top
+        }, 1000, function() {
+          // Remove spinning animation after scrolling is complete
+          $(".white-svg").removeClass("spin");
+        });
+      });
+    });
+    
+    $(document).ready(function() {
+      $(".white-svg").on("click", function() {
+        // Add spinning animation to SVG
+        $(this).addClass("spin");
+    
+        // Scroll to top of element with class "section-1"
+        var section1 = $(".section-1");
+        $("html, body").animate({
+          scrollTop: section1.offset().top
+        }, 1000, function() {
+          // Remove spinning animation after scrolling is complete
+          $(".white-svg").removeClass("spin");
+        });
+      });
+    });
+    
+  </script>
+    {% endblock %}
+    
+    {% block title %}Home{% endblock %}
