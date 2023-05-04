@@ -35,20 +35,9 @@
   /* Hero section styles */
   .hero {
     position: relative;
-    height: 100vh;
+    height: 90vh;
   }
-  
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 15vh;
-    background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, #242129 100%);
-    z-index: 2; /* Ensure the gradient is on top of the video */
-  }
-  
+
   .hero video {
     position: absolute;
     top: 0;
@@ -56,9 +45,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 1; /* Ensure the video is behind the gradient */
   }
-  
 
   .hero .content {
     position: relative;
@@ -68,13 +55,13 @@
 
   /* Section styles */
   section {
-    height: 105vh;
+    height: 100vh;
     display: grid;
     place-items: center;
   }
 
   .section-1 {
-    background-color: #b9a0c9;
+    background-color: #ffffff;
   }
 
   .section-2 {
@@ -89,19 +76,70 @@
     background-color: #444;
   }
 
+  /* Card styles */
+  .card {
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    margin-bottom: 30px;
+    backface-visibility: hidden;
+    border: 3px solid #8800e2;
+    transform-style: preserve-3d;
+  }
 
+  .card::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    bottom: -10px;
+    right: -10px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+  }
+
+  .card:hover::before {
+    animation: neon 1s ease-out infinite;
+    opacity: 1;
+  }
+
+  .card-neon {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-neon::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: -1;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .card-neon:hover::before {
+    opacity: 1;
+  }
+
+  .card-title, .card-text {
+    transform: translateZ(0px);
+    transition: transform 0.3s;
+  }
+  
+  .card:hover .card-title, .card:hover .card-text {
+    transform: translateZ(400px);
+  }
   
   #cursor {
     opacity: 0;
     animation: blink 1s infinite;
   }
   
-  .img-fluid {
-    height: 400px;
-    width: auto;
-    max-width: 100% !important;
-  }
-
   @keyframes blink {
     0% {
       opacity: 0;
@@ -119,13 +157,17 @@
     margin-top: 50px;
     z-index: 9999;
     cursor: pointer;
-    animation: jump 1s ease-in-out infinite;
   }
   
   @keyframes jump {
     0% { transform: translateY(0); }
     50% { transform: translateY(-15px); }
     100% { transform: translateY(0); }
+  }
+  
+  .white-svg {
+    fill: #ffffff;
+    animation: jump 1s ease-in-out infinite;
   }
 
   @media (max-width: 576px) {
@@ -160,10 +202,9 @@
 
 <!-- Hero !-->
 <section class="hero">
-  <video class="gradient-video" autoplay loop muted>
+  <video autoplay loop muted>
     <source src="{{ url_for('static', filename='video/al-vidya.mp4') }}" type="video/mp4">
   </video>
-  
   <div class="container content" style="height: 100%;">
     <div class="row">
       <div class="col-md-7 column" style="margin-top: 35vh;">
@@ -174,7 +215,7 @@
       </div>
 
       <div class="col-md-5 text-center">
-        <img src="https://media.discordapp.net/attachments/1043227671137624144/1103636988910915695/flame_of_tartarus.png?width=553&height=580" style="margin-top: 20vh" class="img-fluid" alt="Random Image">
+        <img src="https://i0.wp.com/rizeagency.co/wp-content/uploads/2021/12/oh__demo1__1.png?resize=768%2C805&ssl=1" style="margin-top: 20vh" class="img-fluid" alt="Random Image">
     </div>
     
     </div>
@@ -187,73 +228,63 @@
   </div>
 </section>
 
-<style>
-  .card {
-    background-color: transparent !important;
-    border: transparent !important;
-  }
-  .flip-card {
-    perspective: 1000px;
-    width: 300px;
-  }
-  
-  .flip-card-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    transition: transform 0.6s;
-    transform-style: preserve-3d;
-  }
-  
-  .flip-card:hover .flip-card-inner {
-    transform: rotateY(180deg);
-  }
-  
-  .flip-card-front, .flip-card-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden;
-    padding: 0;
-  }
-  
-  .flip-card-front {
-    color: black;
-  }
-  
-  .flip-card-back {
-    color: rgb(0, 0, 0);
-    transform: rotateY(180deg);
-  }
-
-  .front-card, .back-card {
-    background-color: white;
-  }
-  
-  
-</style>
 <!-- Section 1 !-->
 <section class="section-1">
-  <div class="card flip-card js-tilt rounded">
-    <div class="flip-card-inner">
-      <div class="card-body flip-card-front">
-        <div class="container front-card px-0 rounded">
-          <img src="{{ url_for('static', filename='images/home/Game_UI.png') }}" class="card-img-top" alt="...">
-          <h2>Front</h2>
-          <p>Hover over me to see the back of the card</p>
+  <h2>Section 1</h2>
+  <div class="container col-md-7 content">
+    <!-- Your hero content goes here -->
+    <div class="row">
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 1</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
         </div>
       </div>
-      <div class="card-body flip-card-back">
-        <div class="container back-card px-0 rounded">
-          <h2>Back</h2>
-          <p>This is the back of the card</p>
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 2</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 3</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 1</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 2</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-md-4">
+        <div class="card card-neon">
+          <div class="card-body">
+            <h5 class="card-title">Tilting Card 3</h5>
+            <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non risus. Suspendisse lectus tortor, dignissim sit amet, adipiscing nec, ultricies sed, dolor. Cras elementum ultrices diam. Maecenas ligula massa, varius a, semper congue, euismod non, mi.</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-  
-  
 </section>
 
 <!-- Section 2 !-->
@@ -294,30 +325,6 @@
       }
     }, delay);
   }
-
-  $(document).ready(function() {
-    // Get the height of the front-card container
-    var frontCardHeight = $('.front-card').outerHeight();
-    console.log('Front card height:', frontCardHeight);
-    
-    // Set the height of the flip-card-front element to match
-    $('.flip-card').css('height', frontCardHeight);
-    $('.back-card').css('height', frontCardHeight);
-    console.log('Flip card front height:', $('.flip-card').outerHeight());
-    
-    // Initialize the Tilt.js effect
-    $('.js-tilt').tilt({
-      scale: 1.1,
-      maxTilt: 10,
-      speed: 400,
-      perspective: 800,
-      glare: true,
-      maxGlare: 0.5
-    });
-  });
-  
-  
-  
   
   function reverseTypeWords(word) {
     let wordIndex = word.length - 1;
@@ -349,7 +356,16 @@
   }
   
   typeWords();
+  
 
+
+  $('.card').tilt({
+    scale: 1.05,
+    perspective: 500,
+    glare: true,
+    transition: true,
+    maxGlare: .5,
+  });
 
   // Add event listeners for changing and updating header
 

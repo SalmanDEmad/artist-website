@@ -2,8 +2,6 @@
 
 {% include 'test.html' %}
 
-{% block title %}Contact{% endblock %}
-
 {% block content %}
 
 <!-- Preview modal -->
@@ -21,6 +19,12 @@
     </div>
 </div>
 
+<style>
+  .for-card:hover {
+    z-index: 2;
+  }  
+</style>
+
 <!-- Portfolio title -->
 <h1 class="mb-4">Portfolio</h1>
 
@@ -30,7 +34,7 @@
       <div class="row g-3">
         <div class="col-md-6">
           <!-- Select element for choosing category -->
-          <select class="form-select" name="category" id="category-select">
+          <select class="form-select" name="category" id="category-select" onchange="this.form.submit()">
             <!-- Option for showing all categories (if no category is selected) -->
             <option value="" {% if category is none %}selected{% endif %}>All categories</option>
             <!-- Loop through all categories and create an option for each one -->
@@ -41,45 +45,51 @@
         </div>
       </div>
     </form>
+
   
     <!-- Display images in a grid -->
     <div class="row row-cols-1 row-cols-md-3 g-4 rounded">
       <!-- Loop through all images and display only those that match the selected category (or all images if no category is selected) -->
       {% for image in images %}
       {% if category == "" or image.category == category %}
-          <div class="col">
-            <div class="card shadow">
-              <!-- Link to full-size image -->
-              <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}">
-                <img src="{{ url_for('static', filename='images/' + image.filename) }}" style="height: 200px; object-fit: cover; transition: all 0.3s ease;" class="card-img-top" alt="{{ image.title }}" onmouseover="this.style.height='auto'; this.style.width='110%'; this.style.objectFit='contain';" onmouseout="this.style.height='200px'; this.style.width='100%'; this.style.objectFit='cover';">
-              </button>
-              
-              <div class="modal fade" id="imageModal{{ image.id }}" tabindex="-1" aria-labelledby="imageModal{{ image.id }}Label" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                  <div class="modal-content">
-
-                    <div class="modal-body">
-                    <a href="{{ url_for('static', filename='images/' + image.filename) }}" target="_blank">
-                        <img src="{{ url_for('static', filename='images/' + image.filename) }}" style="height: 100%; width: 100%; object-fit: contain;">
-                    </a>
-                      <h5 class="modal-title" id="imageModal{{ image.id }}Label">{{ image.title }}</h5>
-                      <p>{{ image.description }}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              <!-- Image details (title and description) -->
-              <div class="card-body pt-0">
-                <h5 class="card-title">{{ image.title }}</h5>
-                <p class="card-text text-center text-muted">{{ image.description }}</p>
-              </div>
-            </div>
+      <div class="col for-card" onmouseover="this.style.transform='scale(1.2)'; this.querySelector('img').style.height='auto';" onmouseout="this.style.transform='scale(1)'; this.querySelector('img').style.height='200px';" style="transition: all 0.5s ease;">
+        <div class="card shadow">
+          <!-- Link to full-size image -->
+          <button type="button" class="btn btn-link p-0" data-bs-toggle="modal" data-bs-target="#imageModal{{ image.id }}">
+            <img src="{{ url_for('static', filename='images/' + image.filename) }}" style="height: 200px; object-fit: cover; transition: all 0.5s ease;" class="card-img-top" alt="{{ image.title }}">
+          </button>
+          
+          <!-- Image details (title and description) -->
+          <div class="card-body pt-0">
+            <h5 class="card-title text-center">{{ image.title }}</h5>
+            <p class="card-text text-center text-muted">{{ image.description }}</p>
           </div>
+        </div>
+      </div>
+      
         {% endif %}
       {% endfor %}
     </div>
 </div>
+
+{% for image in images %}
+{% if category == "" or image.category == category %}
+<div class="modal fade" id="imageModal{{ image.id }}" tabindex="-1" aria-labelledby="imageModal{{ image.id }}Label" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-body">
+        <a href="{{ url_for('static', filename='images/' + image.filename) }}" target="_blank">
+          <img src="{{ url_for('static', filename='images/' + image.filename) }}" style="height: 100%; width: 100%; object-fit: contain;">
+        </a>
+        <h5 class="modal-title" id="imageModal{{ image.id }}Label">{{ image.title }}</h5>
+        <p>{{ image.description }}</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
 
 <script>
     const categorySelect = document.getElementById('category-select');
@@ -98,27 +108,6 @@
       // Submit the form
       categoryForm.submit();
     });
-
-    // Get the file input and preview image elements
-const imageInput = document.getElementById('imageInput');
-const previewImage = document.getElementById('previewImage');
-
-// Add an event listener to the file input to handle when a file is selected
-imageInput.addEventListener('change', () => {
-  // Get the selected file from the file input element
-  const file = imageInput.files[0];
-
-  // Set the preview image source to the selected file data
-  const reader = new FileReader();
-  reader.addEventListener('load', () => {
-    previewImage.src = reader.result;
-  });
-  reader.readAsDataURL(file);
-
-  // Show the preview modal
-  const previewModal = new bootstrap.Modal(document.getElementById('previewModal'));
-  previewModal.show();
-});
   </script>
 
 {% endblock %}

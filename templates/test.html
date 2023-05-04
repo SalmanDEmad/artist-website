@@ -12,17 +12,37 @@
 
     </head>
    <body>
+
+    <style>
+        #post-svg {
+            transition: transform 1s ease-in-out;
+          }
+          
+          #post-svg.rotate {
+            transform: rotate(360deg);
+          }
+          
+    </style>
     {% block content %}
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#smartWizardModal" onclick="initSmartWizard()">
-        Launch Smart Wizard Modal
-    </button>
+    <li class="nav-item">
+        <a id="link-item" class="nav-link item" data-toggle="modal" data-target="#smartWizardModal" onclick="initSmartWizard()">
+          <svg id="post-svg" viewBox="0 0 24 24" fill="none" width="18px" height="18px" xmlns="http://www.w3.org/2000/svg">
+            <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+            <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+            <g id="SVGRepo_iconCarrier">
+              <path d="M4 12H20M12 4V20" stroke="#ffffff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </g>
+          </svg>
+        </a>
+      </li>
+    {% endblock %}     
     
       <!-- Smart Wizard Modal -->
       <div class="modal fade" id="smartWizardModal" tabindex="-1" role="dialog" aria-labelledby="smartWizardModalLabel" aria-hidden="true">
          <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="smartWizardModalLabel">Smart Wizard Modal Example</h5>
+                  <h5 class="modal-title" id="smartWizardModalLabel">Post</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
@@ -47,10 +67,23 @@
                                  <label for="descriptionInput" class="form-label">Description</label>
                                  <textarea class="form-control" id="descriptionInput" name="description" rows="3" required></textarea>
                               </div>
-                              <div class="mb-3">
-                                 <label for="categoryInput" class="form-label">Category</label>
-                                 <input type="text" class="form-control" id="categoryInput" name="category_for_post" required>
+                              <div class="row">
+                                <div class="col-md-12 mb-3">
+                                  <label for="select-category">Category / Text Input</label>
+                                  <div class="form-group d-flex">
+                                    <select class="form-control mr-2" name="category_for_post" id="select-category">
+                                      <!-- Option for showing all categories (if no category is selected) -->
+                                      <option value="" {% if category is none %}selected{% endif %}>All categories</option>
+                                      <!-- Loop through all categories and create an option for each one -->
+                                      {% for category_name in categories %}
+                                        <option value="{{ category_name }}" {% if category == category_name %}selected{% endif %}>{{ category_name }}</option>
+                                      {% endfor %}
+                                    </select>
+                                    <input type="text" class="form-control" name="text_input_for_post" id="text-input" placeholder="Enter some text">
+                                  </div>
+                                </div>
                               </div>
+     
                            </div>
                            <div id="step-2">
                             <h2>Add Image</h2>
@@ -88,7 +121,6 @@
             </div>
          </div>
       </div>
-      {% endblock %}
       <!-- Cropper.js JS -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.12/cropper.min.js"></script>
       <!-- Bootstrap JS -->
@@ -98,6 +130,24 @@
       <!-- Smart Wizard JS -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/smartwizard/4.3.1/js/jquery.smartWizard.min.js"></script>
       <script>
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const post_svg = document.getElementById('post-svg');
+            const link = document.getElementById('link-item');
+            link.addEventListener('click', () => {
+              console.log('Link clicked');
+              post_svg.classList.add('rotate');
+              console.log('Class added');
+            });
+          });
+
+        const selectElement = document.getElementById("select-category");
+
+        selectElement.addEventListener("change", (event) => {
+        const selectedOption = event.target.value;
+        console.log(selectedOption);
+        });
+
         function initSmartWizard() {
             $('#smartWizard').smartWizard({
                 theme: 'dots',

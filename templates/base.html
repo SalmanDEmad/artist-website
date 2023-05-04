@@ -27,18 +27,18 @@
         transition: background-color 0.5s ease;
       }
 
-      a.nav-link, a.navbar-brand {
+      a.nav-link.item, a.navbar-brand {
         color: whitesmoke !important;
         border-radius: 5px;
         transition: background-color 0.3s ease-in-out;
       }
     
-      .nav-link:hover {
+      .nav-link.item:hover {
         background-color: rgb(191, 138, 212, 0.4);
       }
                 
     </style>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top navbar-invisible">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top navbar-invisible">
         <div class="container">
             <a class="navbar-brand" href="{{ url_for('home') }}">Portfolio Website</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -47,20 +47,23 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+                        <a class="nav-link item" href="{{ url_for('home') }}">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+                        <a class="nav-link item" href="{{ url_for('about') }}">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+                        <a class="nav-link item" href="{{ url_for('contact') }}">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('portfolio') }}">Portfolio</a>
+                        <a class="nav-link item" href="{{ url_for('portfolio') }}">Portfolio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('vouch') }}">Vouch</a>
+                        <a class="nav-link item" href="{{ url_for('vouch') }}">Vouch</a>
                     </li>
+                    {% if include_test is true %}
+                        {% include 'test.html' %}
+                    {% endif %}
                 </ul>
             </div>
         </div>

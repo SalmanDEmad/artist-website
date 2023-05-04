@@ -14,6 +14,8 @@ db = mysql.connector.connect(
     auth_plugin='mysql_native_password'
 )
 
+include_test=False
+
 @app.route('/')
 def home():
     return render_template('home.html')
@@ -42,6 +44,17 @@ def post_to_portfolio():
     title = request.form['title']
     description = request.form['description']
     category_for_post = request.form['category_for_post']
+    text_input_for_post = request.form['text_input_for_post']
+
+    # Check if category_for_post is filled
+    if category_for_post:
+        category = category_for_post
+    # If not, check if text_input_for_post is filled
+    elif text_input_for_post:
+        category = text_input_for_post
+    # If neither is filled, return an error message
+    else:
+        return "Error: Please fill in either the category or the text input field."
 
     # Get the base64-encoded image data from the form
     image_data_base64 = request.form['croppedImageData']
@@ -64,7 +77,7 @@ def post_to_portfolio():
     query = ("INSERT INTO images (filename, directory, title, description, category) "
             "VALUES (%s, %s, %s, %s, %s)")
 
-    data = (filename, directory, title, description, category_for_post)
+    data = (filename, directory, title, description, category)
 
     mycursor.execute(query, data)
     db.commit()
@@ -73,13 +86,16 @@ def post_to_portfolio():
 
     print("posted successfully I think")
 
-     # redirect to portfolio page
+    # redirect to portfolio page
     return redirect(url_for('portfolio'))
 
 
-@app.route('/portfolio', methods=['GET', 'POST'])
-def portfolio():
-    category = ""
+
+@app.route('/portfolio/', defaults={'category': None}, methods=['GET', 'POST'])
+@app.route('/portfolio/<category>/', methods=['GET', 'POST'])
+def portfolio(category):
+    if category is None:
+        category = ""
     if request.method == 'POST':
         category = request.form['category']
     mycursor = db.cursor()
@@ -110,7 +126,7 @@ def portfolio():
         }
         images.append(image)
 
-    return render_template('portfolio2.html', images=images, categories=categories, category=category)
+    return render_template('portfolio.html', images=images, categories=categories, category=category, include_test=True)
 
 
 
