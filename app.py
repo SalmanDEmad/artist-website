@@ -4,7 +4,7 @@ import os
 import secrets
 import base64
 app = Flask(__name__)
-
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # MySQL database connection
 db = mysql.connector.connect(
     host="localhost",

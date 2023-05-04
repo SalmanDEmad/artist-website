@@ -241,150 +241,144 @@
   
 </style>
 <section class="section-1">
-    <div class="container col-md-10 content">
-      <!-- Your hero content goes here -->
-      <div class="row">
-        <div class="col-6 col-md-4" style="margin-bottom: 100px;">
-          <div class="card mx-auto flip-card js-tilt rounded">
-            <div class="flip-card-inner">
-              <div class="card-body flip-card-front">
-                <div class="container front-card px-0 rounded">
-                  <img src="{{ url_for('static', filename='images/home/logo.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
-                </div>
-              </div>
-              <div class="card-body flip-card-back">
-                <div class="container back-card px-0 rounded">
-                  <h2>
-                    <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/logo.svg') }}">
-                      Alternative text
-                    </object>  
-                  </h2>
-                  <p class="mx-4">"Distinctive and memorable logos that speak volumes - crafted to reflect your brand's personality and make an impact with deep symbolism.</p>
-                </div>
-              </div>
+  <div class="row row-cols-sm-2 row-cols-lg-3">
+    <div class="col mb-4">
+      <div class="card flip-card js-tilt rounded">
+        <div class="flip-card-inner">
+          <div class="card-body flip-card-front">
+            <div class="container front-card px-0 rounded">
+              <img src="{{ url_for('static', filename='images/home/logo.png') }}" class="card-img-top" alt="...">
+              <h2>Front</h2>
             </div>
           </div>
-        </div>
-        <div class="col-6 col-md-4">
-          <div class="card mx-auto flip-card js-tilt rounded">
-            <div class="flip-card-inner">
-              <div class="card-body flip-card-front">
-                <div class="container front-card px-0 rounded">
-                  <img src="{{ url_for('static', filename='images/home/calligraphy.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
-                </div>
-              </div>
-              <div class="card-body flip-card-back">
-                <div class="container back-card px-0 rounded">
-                  <h2>
-                    <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/calligraphy.svg') }}">
-                      Alternative text
-                    </object>  
-                  </h2>
-                  <p class="mx-4">Decorate the walls of your home with the timeless beauty of Arabic calligraphy, conveying depth, elegance and cultural richness through premiere Islamic aesthetic.</p>
-                </div>
-              </div>
+          <div class="card-body flip-card-back">
+            <div class="container back-card px-0 rounded">
+              <h2>
+                <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/logo.svg') }}">
+                  Alternative text
+                </object>  
+              </h2>
+              <p>This is the back of the card</p>
             </div>
           </div>
-          </div>
-        <div class="col-6 col-md-4">
-          <div class="card mx-auto flip-card js-tilt rounded">
-            <div class="flip-card-inner">
-              <div class="card-body flip-card-front">
-                <div class="container front-card px-0 rounded">
-                  <img src="{{ url_for('static', filename='images/home/portrait.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
-                  
-                </div>
-              </div>
-              <div class="card-body flip-card-back">
-                <div class="container back-card px-0 rounded">
-                  <h2>
-                    <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/portrait.svg') }}">
-                      Alternative text
-                    </object>  
-                  </h2>
-                  <p class="mx-4">Capture the essence of your subject with a captivating portrait that conveys emotion and tells a powerful story through the lens of artistry.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-    
-        </div>
-  
-        <div class="col-6 col-md-4">
-          <div class="card mx-auto flip-card js-tilt rounded">
-            <div class="flip-card-inner">
-              <div class="card-body flip-card-front">
-                <div class="container front-card px-0 rounded">
-                  <img src="{{ url_for('static', filename='images/home/interface.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
-                </div>
-              </div>
-              <div class="card-body flip-card-back">
-                <div class="container back-card px-0 rounded">
-                  <h2>
-                    <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/interface.svg') }}">
-                      Alternative text
-                    </object>  
-                  </h2>
-                  <p class="mx-4">Get yourself crafted a seamless user experience with a beautifully designed interface that enhances functionality and delivers a delightful user journey.</p>
-                </div>
-              </div>
-            </div>
-          </div>  
-        </div>
-        <div class="col-6 col-md-4">
-          <div class="card mx-auto flip-card js-tilt rounded">
-            <div class="flip-card-inner">
-              <div class="card-body flip-card-front">
-                <div class="container front-card px-0 rounded">
-                  <img src="{{ url_for('static', filename='images/home/merch_design.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
-                  
-                </div>
-              </div>
-              <div class="card-body flip-card-back">
-                <div class="container back-card px-0 rounded">
-                  <h2>
-                    <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/merch_design.svg') }}">
-                      Alternative text
-                    </object>  
-                  </h2>
-                  <p class="mx-4">Make your brand stand out from the crowd with unique and eye-catching merch designs that reflect your brand's personality and leave a lasting impression on your audience.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-          </div>
-        <div class="col-6 col-md-4">
-          <div class="card mx-auto flip-card js-tilt rounded">
-            <div class="flip-card-inner">
-              <div class="card-body flip-card-front">
-                <div class="container front-card px-0 rounded">
-                  <img src="{{ url_for('static', filename='images/home/Game_UI.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
-                  
-                </div>
-              </div>
-              <div class="card-body flip-card-back">
-                <div class="container back-card px-0 rounded">
-                  <h2>
-                    <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/game_icons.svg') }}">
-                      Alternative text
-                    </object>                
-                  </h2>
-                  <p class="mx-4">Transform your art website with a modern, elegant user interface design that showcases your creativity and captivates your audience.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-    
         </div>
       </div>
     </div>
-  </section>
+    <div class="col mb-4">
+      <div class="card flip-card js-tilt rounded">
+        <div class="flip-card-inner">
+          <div class="card-body flip-card-front">
+            <div class="container front-card px-0 rounded">
+              <img src="{{ url_for('static', filename='images/home/calligraphy.png') }}" class="card-img-top" alt="...">
+              <h2>Front</h2>
+            </div>
+          </div>
+          <div class="card-body flip-card-back">
+            <div class="container back-card px-0 rounded">
+              <h2>
+                <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/calligraphy.svg') }}">
+                  Alternative text
+                </object>  
+              </h2>
+              <p class="mx-4">Decorate the walls of your home with the timeless beauty of Arabic calligraphy, conveying depth, elegance and cultural richness through premiere Islamic aesthetic.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4">
+      <div class="card flip-card js-tilt rounded">
+        <div class="flip-card-inner">
+          <div class="card-body flip-card-front">
+            <div class="container front-card px-0 rounded">
+              <img src="{{ url_for('static', filename='images/home/interface.png') }}" class="card-img-top" alt="...">
+              <h2>Front</h2>
+            </div>
+          </div>
+          <div class="card-body flip-card-back">
+            <div class="container back-card px-0 rounded">
+              <h2>
+                <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/interface.svg') }}">
+                  Alternative text
+                </object>  
+              </h2>
+              <p>Get yourself crafted a seamless user experience with a beautifully designed interface that enhances functionality and delivers a delightful user journey.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4 d-none d-md-block">
+      <div class="card flip-card js-tilt rounded">
+        <div class="flip-card-inner">
+          <div class="card-body flip-card-front">
+            <div class="container front-card px-0 rounded">
+              <img src="{{ url_for('static', filename='images/home/merch_design.png') }}" class="card-img-top" alt="...">
+              <h2>Front</h2>
+              
+            </div>
+          </div>
+          <div class="card-body flip-card-back">
+            <div class="container back-card px-0 rounded">
+              <h2>
+                <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/merch_design.svg') }}">
+                  Alternative text
+                </object>  
+              </h2>
+              <p>Make your brand stand out from the crowd with unique and eye-catching merch designs that reflect your brand's personality and leave a lasting impression on your audience.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4 d-none d-md-block">
+      <div class="card flip-card js-tilt rounded">
+        <div class="flip-card-inner">
+          <div class="card-body flip-card-front">
+            <div class="container front-card px-0 rounded">
+              <img src="{{ url_for('static', filename='images/home/portrait.png') }}" class="card-img-top" alt="...">
+              <h2>Front</h2>
+              
+            </div>
+          </div>
+          <div class="card-body flip-card-back">
+            <div class="container back-card px-0 rounded">
+              <h2>
+                <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/portrait.svg') }}">
+                  Alternative text
+                </object>  
+              </h2>
+              <p>Capture the essence of your subject with a captivating portrait that conveys emotion and tells a powerful story through the lens of artistry.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col mb-4 d-none d-md-block">
+      <div class="card flip-card js-tilt rounded">
+        <div class="flip-card-inner">
+          <div class="card-body flip-card-front">
+            <div class="container front-card px-0 rounded">
+              <img src="{{ url_for('static', filename='images/home/Game_UI.png') }}" class="card-img-top" alt="...">
+              <h2>Front</h2>
+              
+            </div>
+          </div>
+          <div class="card-body flip-card-back">
+            <div class="container back-card px-0 rounded">
+              <h2>
+                <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/game_icons.svg') }}">
+                  Alternative text
+                </object>                
+              </h2>
+              <p class="mx-4">Transform your art website with a modern, elegant user interface design that showcases your creativity and captivates your audience.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- Section 2 !-->
 <section class="section-2">
