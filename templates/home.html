@@ -250,7 +250,7 @@
               <div class="card-body flip-card-front">
                 <div class="container front-card px-0 rounded">
                   <img src="{{ url_for('static', filename='images/home/logo.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
+                  <h2>Logo</h2>
                 </div>
               </div>
               <div class="card-body flip-card-back">
@@ -272,7 +272,7 @@
               <div class="card-body flip-card-front">
                 <div class="container front-card px-0 rounded">
                   <img src="{{ url_for('static', filename='images/home/calligraphy.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
+                  <h2>Calligraphy</h2>
                 </div>
               </div>
               <div class="card-body flip-card-back">
@@ -294,14 +294,14 @@
               <div class="card-body flip-card-front">
                 <div class="container front-card px-0 rounded">
                   <img src="{{ url_for('static', filename='images/home/portrait.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
+                  <h2>Portrait</h2>
                   
                 </div>
               </div>
               <div class="card-body flip-card-back">
                 <div class="container back-card px-0 rounded">
                   <h2>
-                    <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/portrait.svg') }}">
+                    <object class="my-object" type="image/svg+xml" data="{{ url_for('static', filename='svg/portrait_art.svg') }}">
                       Alternative text
                     </object>  
                   </h2>
@@ -319,7 +319,7 @@
               <div class="card-body flip-card-front">
                 <div class="container front-card px-0 rounded">
                   <img src="{{ url_for('static', filename='images/home/interface.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
+                  <h2>Interface</h2>
                 </div>
               </div>
               <div class="card-body flip-card-back">
@@ -341,7 +341,7 @@
               <div class="card-body flip-card-front">
                 <div class="container front-card px-0 rounded">
                   <img src="{{ url_for('static', filename='images/home/merch_design.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
+                  <h2>Merch Design</h2>
                   
                 </div>
               </div>
@@ -364,7 +364,7 @@
               <div class="card-body flip-card-front">
                 <div class="container front-card px-0 rounded">
                   <img src="{{ url_for('static', filename='images/home/Game_UI.png') }}" class="card-img-top" alt="...">
-                  <h2>Front</h2>
+                  <h2>Game UI</h2>
                   
                 </div>
               </div>
@@ -426,14 +426,7 @@
   }
 
   $(document).ready(function() {
-    // Get the height of the front-card container
-    var frontCardHeight = $('.front-card').outerHeight();
-    console.log('Front card height:', frontCardHeight);
-    
-    // Set the height of the flip-card-front element to match
-    $('.flip-card').css('height', frontCardHeight);
-    $('.back-card').css('height', frontCardHeight);
-    console.log('Flip card front height:', $('.flip-card').outerHeight());
+
     
     // Initialize the Tilt.js effect
     $('.js-tilt').tilt({
